@@ -6,8 +6,12 @@
   "publisher": "EdwardFarrelly",
   "repository": {
     "type": "git",
-    "url": "https://github.com/EdwardFarrelly/ai-code-buddy"
+    "url": "https://github.com/EARTHTOEDWARD/ai-code-buddy-extension"
   },
+  "bugs": {
+    "url": "https://github.com/EARTHTOEDWARD/ai-code-buddy-extension/issues"
+  },
+  "homepage": "https://github.com/EARTHTOEDWARD/ai-code-buddy-extension#readme",
   "engines": {
     "vscode": "^1.85.0"
   },
