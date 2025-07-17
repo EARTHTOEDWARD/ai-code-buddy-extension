@@ -1,0 +1,219 @@
+{
+  "name": "ai-code-buddy",
+  "displayName": "AI Code Buddy",
+  "description": "Integrate ChatGPT o3/o3-mini and Claude Code for enhanced coding collaboration",
+  "version": "1.0.0",
+  "publisher": "EdwardFarrelly",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/EdwardFarrelly/ai-code-buddy"
+  },
+  "engines": {
+    "vscode": "^1.85.0"
+  },
+  "categories": [
+    "AI",
+    "Machine Learning",
+    "Other"
+  ],
+  "keywords": [
+    "ai",
+    "chatgpt",
+    "claude",
+    "copilot",
+    "code-buddy",
+    "collaboration",
+    "repomix",
+    "o3"
+  ],
+  "activationEvents": [
+    "onStartupFinished"
+  ],
+  "main": "./out/extension.js",
+  "contributes": {
+    "commands": [
+      {
+        "command": "aicodeBuddy.packageRepo",
+        "title": "Package Repository for AI",
+        "category": "AI Code Buddy"
+      },
+      {
+        "command": "aicodeBuddy.openChatGPT",
+        "title": "Open ChatGPT o3/o3-mini",
+        "category": "AI Code Buddy"
+      },
+      {
+        "command": "aicodeBuddy.openClaudeCode",
+        "title": "Open Claude Code Terminal",
+        "category": "AI Code Buddy"
+      },
+      {
+        "command": "aicodeBuddy.contextManager",
+        "title": "AI Context Manager",
+        "category": "AI Code Buddy"
+      },
+      {
+        "command": "aicodeBuddy.showDashboard",
+        "title": "Show AI Code Buddy Dashboard",
+        "category": "AI Code Buddy"
+      },
+      {
+        "command": "aicodeBuddy.configureModels",
+        "title": "Configure AI Models",
+        "category": "AI Code Buddy"
+      }
+    ],
+    "menus": {
+      "explorer/context": [
+        {
+          "command": "aicodeBuddy.packageRepo",
+          "group": "aicodeBuddy",
+          "when": "explorerResourceIsFolder"
+        }
+      ],
+      "editor/context": [
+        {
+          "command": "aicodeBuddy.contextManager",
+          "group": "aicodeBuddy"
+        }
+      ],
+      "commandPalette": [
+        {
+          "command": "aicodeBuddy.packageRepo"
+        },
+        {
+          "command": "aicodeBuddy.openChatGPT"
+        },
+        {
+          "command": "aicodeBuddy.openClaudeCode"
+        },
+        {
+          "command": "aicodeBuddy.contextManager"
+        },
+        {
+          "command": "aicodeBuddy.showDashboard"
+        },
+        {
+          "command": "aicodeBuddy.configureModels"
+        }
+      ]
+    },
+    "configuration": {
+      "title": "AI Code Buddy",
+      "properties": {
+        "aicodeBuddy.openaiApiKey": {
+          "type": "string",
+          "default": "",
+          "description": "OpenAI API Key for ChatGPT o3/o3-mini access"
+        },
+        "aicodeBuddy.defaultModel": {
+          "type": "string",
+          "default": "gpt-4o",
+          "enum": [
+            "gpt-4o",
+            "o3-mini",
+            "o3",
+            "claude-3.5-sonnet",
+            "claude-sonnet-4"
+          ],
+          "description": "Default AI model to use"
+        },
+        "aicodeBuddy.repomixIncludePatterns": {
+          "type": "array",
+          "default": [
+            "*.py",
+            "*.js",
+            "*.ts",
+            "*.md",
+            "*.json",
+            "*.yaml",
+            "*.yml"
+          ],
+          "description": "File patterns to include when packaging repository"
+        },
+        "aicodeBuddy.repomixIgnorePatterns": {
+          "type": "array",
+          "default": [
+            "node_modules/*",
+            "dist/*",
+            "build/*",
+            "*.pyc",
+            "__pycache__/*",
+            ".git/*",
+            "*.log"
+          ],
+          "description": "File patterns to ignore when packaging repository"
+        },
+        "aicodeBuddy.autoContextSharing": {
+          "type": "boolean",
+          "default": true,
+          "description": "Automatically share context between AI models"
+        }
+      }
+    },
+    "viewsContainers": {
+      "activitybar": [
+        {
+          "id": "aicodeBuddy",
+          "title": "AI Code Buddy",
+          "icon": "$(robot)"
+        }
+      ]
+    },
+    "views": {
+      "aicodeBuddy": [
+        {
+          "id": "aicodeBuddy.dashboard",
+          "name": "Dashboard",
+          "when": "true"
+        },
+        {
+          "id": "aicodeBuddy.models",
+          "name": "AI Models",
+          "when": "true"
+        },
+        {
+          "id": "aicodeBuddy.context",
+          "name": "Context Manager",
+          "when": "true"
+        }
+      ]
+    },
+    "keybindings": [
+      {
+        "command": "aicodeBuddy.packageRepo",
+        "key": "ctrl+shift+p",
+        "mac": "cmd+shift+p"
+      },
+      {
+        "command": "aicodeBuddy.contextManager",
+        "key": "ctrl+shift+c",
+        "mac": "cmd+shift+c"
+      }
+    ]
+  },
+  "scripts": {
+    "vscode:prepublish": "npm run compile",
+    "compile": "tsc -p ./",
+    "watch": "tsc -watch -p ./",
+    "pretest": "npm run compile && npm run lint",
+    "lint": "eslint src --ext ts",
+    "test": "node ./out/test/runTest.js",
+    "package": "vsce package"
+  },
+  "devDependencies": {
+    "@types/vscode": "^1.85.0",
+    "@types/node": "^18.19.0",
+    "@typescript-eslint/eslint-plugin": "^6.15.0",
+    "@typescript-eslint/parser": "^6.15.0",
+    "eslint": "^8.56.0",
+    "typescript": "^5.3.3",
+    "@vscode/test-electron": "^2.3.8",
+    "vsce": "^2.15.0"
+  },
+  "dependencies": {
+    "openai": "^4.28.0",
+    "axios": "^1.6.0",
+    "child_process": "^1.0.2"
+  }
+}
